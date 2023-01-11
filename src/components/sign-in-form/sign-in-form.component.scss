@@ -1,0 +1,19 @@
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+
+  h2 {
+    margin: 10px 0;
+  }
+}
+
+.action-bar {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  & > * {
+    flex-grow: 1;
+    flex-basis: content;
+  }
+}
