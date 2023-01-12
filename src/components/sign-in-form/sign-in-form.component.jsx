@@ -25,8 +25,7 @@ const SignInForm = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInWithEmailAndPassword(email, password);
-      console.log(response);
+      await signInWithEmailAndPassword(email, password);
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/wrong-password") {
@@ -47,8 +46,7 @@ const SignInForm = () => {
 
   const onSignInWithGoogleHandler = async () => {
     const response = await signInWithGooglePopup();
-    const userDoc = await createUserDocumentFromAuth(response.user);
-    console.log(userDoc);
+    await createUserDocumentFromAuth(response.user);
   };
 
   return (
