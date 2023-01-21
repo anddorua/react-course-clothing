@@ -10,10 +10,14 @@ export const CartIcon = () => {
     setOpened(!opened);
   };
 
+  const { cartItems } = useContext(CartDrawerContext);
+
   return (
     <div className="cart-icon-container" onClick={onClickHandler}>
       <ShoppingItem className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">
+        {cartItems.reduce((sum, { quantity }) => sum + quantity, 0)}
+      </span>
     </div>
   );
 };
