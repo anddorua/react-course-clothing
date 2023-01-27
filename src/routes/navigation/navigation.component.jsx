@@ -5,7 +5,7 @@ import { UserContext } from "../../contexts/user.context";
 import { signOut } from "../../utils/firebase/firebase.utils";
 import { CartIcon } from "../../components/cart-icon/cart-icon.component";
 import { CartDropdown } from "../../components/cart-dropdown/cart-dropdown.component";
-import { CartDrawerContext } from "../../contexts/cart-drawer.context";
+import { CartDrawerContext } from "../../contexts/cart.context";
 import {
   NavigationContainer,
   LogoContainer,

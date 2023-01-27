@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./cart-icon.styles.jsx";
-import { CartDrawerContext } from "../../contexts/cart-drawer.context";
+import { CartDrawerContext } from "../../contexts/cart.context";
 import {
   CartIconContainer,
   StyledShoppingIcon,

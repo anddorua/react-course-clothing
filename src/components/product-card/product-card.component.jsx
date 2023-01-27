@@ -2,7 +2,7 @@ import "./product-card.component.scss";
 
 import React, { useContext } from "react";
 import { Button, BUTTON_TYPE_CLASSES } from "../button/button.component";
-import { CartDrawerContext } from "../../contexts/cart-drawer.context";
+import { CartDrawerContext } from "../../contexts/cart.context";
 
 export const ProductCard = ({ product }) => {
   const { addItemToCart } = useContext(CartDrawerContext);
