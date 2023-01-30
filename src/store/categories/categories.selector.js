@@ -18,6 +18,6 @@ export const selectCategoriesMap = createSelector(
 );
 
 export const selectCategoriesIsLoading = createSelector(
-  [selectCategories],
+  [selectCategorySubstate],
   (categories) => categories.isLoading
 );

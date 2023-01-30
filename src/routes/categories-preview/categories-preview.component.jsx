@@ -13,7 +13,7 @@ export const CategoriesPreview = () => {
   return (
     <Fragment>
       {isLoading ? (
-        <Spinner></Spinner>
+        <Spinner />
       ) : (
         Object.entries(categoriesMap).map(([categoryKey, shopItems]) => (
           <CategoryPreview
