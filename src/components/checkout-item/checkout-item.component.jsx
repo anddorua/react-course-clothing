@@ -1,11 +1,14 @@
 import "./checkout-item.component.scss";
-import { useContext } from "react";
-import { CartDrawerContext } from "../../contexts/cart.context";
+import { useDispatch } from "react-redux";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeItem,
+} from "../../store/cart/cart.action";
 
 export const CheckoutItem = ({ cartItem }) => {
   const { id, imageUrl, name, price, quantity } = cartItem;
-  const { decreaseQuantity, increaseQuantity, removeItem } =
-    useContext(CartDrawerContext);
+  const dispatch = useDispatch();
   return (
     <div className="checkout-item-container">
       <div className="image-container">
@@ -13,16 +16,16 @@ export const CheckoutItem = ({ cartItem }) => {
       </div>
       <div className="name">{name}</div>
       <div className="quantity">
-        <div className="arrow" onClick={() => decreaseQuantity(id)}>
+        <div className="arrow" onClick={() => dispatch(decreaseQuantity(id))}>
           &#10094;
         </div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={() => increaseQuantity(id)}>
+        <div className="arrow" onClick={() => dispatch(increaseQuantity(id))}>
           &#10095;
         </div>
       </div>
       <div className="price">{price}</div>
-      <div className="remove-button" onClick={() => removeItem(id)}>
+      <div className="remove-button" onClick={() => dispatch(removeItem(id))}>
         &#10005;
       </div>
     </div>

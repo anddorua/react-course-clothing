@@ -1,5 +1,4 @@
-import { useReducer } from "react";
-import { createContext } from "react";
+import { CART_ACTION_TYPES } from "./cart.types";
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingItem = getCartItem(cartItems, productToAdd.id);
@@ -26,35 +25,12 @@ const removeCartItem = (cartItems, productId) => {
   return cartItems.filter((item) => item.id !== productId);
 };
 
-export const CartDrawerContext = createContext({
-  opened: false,
-  setOpened: () => null,
-  cartItems: [],
-  addItemToCart: () => {},
-  increaseQuantity: () => {},
-  decreaseQuantity: () => {},
-  removeItem: () => {},
-  total: 0,
-});
-
-const CART_ACTION_TYPES = {
-  SET_OPENED: "SET_OPENED",
-  ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
-  INCREASE_QUANTITY: "INCREASE_QUANTITY",
-  DECREASE_QUANTITY: "DECREASE_QUANTITY",
-  REMOVE_ITEM: "REMOVE_ITEM",
-};
-
 const INITIAL_STATE = {
   opened: false,
   cartItems: [],
-  total: 0,
 };
 
-const calcTotal = (cartItems) =>
-  cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-const cartReducer = (state, action) => {
+export const cartReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case CART_ACTION_TYPES.SET_OPENED:
@@ -69,7 +45,6 @@ const cartReducer = (state, action) => {
         return {
           ...state,
           cartItems,
-          total: calcTotal(cartItems),
         };
       })();
 
@@ -86,7 +61,6 @@ const cartReducer = (state, action) => {
         return {
           ...state,
           cartItems,
-          total: calcTotal(cartItems),
         };
       })(payload);
 
@@ -110,7 +84,6 @@ const cartReducer = (state, action) => {
         return {
           ...state,
           cartItems,
-          total: calcTotal(cartItems),
         };
       })(payload);
 
@@ -124,66 +97,9 @@ const cartReducer = (state, action) => {
         return {
           ...state,
           cartItems,
-          total: calcTotal(cartItems),
         };
       })(payload);
     default:
-      throw new Error("Unexpected cart action:", type);
+      return state;
   }
-};
-
-export const CartDrawerProvider = ({ children }) => {
-  const [{ opened, cartItems, total }, dispatch] = useReducer(
-    cartReducer,
-    INITIAL_STATE
-  );
-
-  const setOpened = (payload) => {
-    dispatch({ type: CART_ACTION_TYPES.SET_OPENED, payload });
-  };
-
-  const addItemToCart = (payload) => {
-    dispatch({
-      type: CART_ACTION_TYPES.ADD_ITEM_TO_CART,
-      payload,
-    });
-  };
-
-  const increaseQuantity = (payload) => {
-    dispatch({
-      type: CART_ACTION_TYPES.INCREASE_QUANTITY,
-      payload,
-    });
-  };
-
-  const decreaseQuantity = (payload) => {
-    dispatch({
-      type: CART_ACTION_TYPES.INCREASE_QUANTITY,
-      payload,
-    });
-  };
-
-  const removeItem = (payload) => {
-    dispatch({
-      type: CART_ACTION_TYPES.REMOVE_ITEM,
-      payload,
-    });
-  };
-
-  return (
-    <CartDrawerContext.Provider
-      value={{
-        opened,
-        setOpened,
-        cartItems,
-        addItemToCart,
-        increaseQuantity,
-        decreaseQuantity,
-        removeItem,
-        total,
-      }}
-    >
-      {children}
-    </CartDrawerContext.Provider>
-  );
 };
