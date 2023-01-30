@@ -30,7 +30,7 @@ const INITIAL_STATE = {
   cartItems: [],
 };
 
-export const cartReducer = (state = INITIAL_STATE, action) => {
+export const cartReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
   switch (type) {
     case CART_ACTION_TYPES.SET_OPENED:
