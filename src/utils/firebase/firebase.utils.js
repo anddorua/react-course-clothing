@@ -126,3 +126,16 @@ export const signOut = async () => {
 export const onAuthStateChanged = (callback) => {
   return firebaseOnAuthStateChanged(auth, callback);
 };
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebaseOnAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
