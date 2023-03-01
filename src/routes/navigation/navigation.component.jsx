@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
-import { signOut } from "../../utils/firebase/firebase.utils";
 import { CartIcon } from "../../components/cart-icon/cart-icon.component";
 import { CartDropdown } from "../../components/cart-dropdown/cart-dropdown.component";
 import {
@@ -10,17 +9,18 @@ import {
   NavLinksContainer,
   NavLink,
 } from "./navigation.styles.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { openedSelector } from "../../store/cart/cart.selector";
+import { signOutStart } from "../../store/user/user.action";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(openedSelector);
+  const dispatch = useDispatch();
 
-  const onSignOutHandler = async (event) => {
-    event.preventDefault();
-    await signOut();
+  const onSignOutHandler = async () => {
+    dispatch(signOutStart());
   };
 
   return (
@@ -32,7 +32,9 @@ const Navigation = () => {
         <NavLinksContainer>
           <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
-            <NavLink onClick={onSignOutHandler}>SIGN OUT</NavLink>
+            <NavLink to="/auth" onClick={onSignOutHandler}>
+              SIGN OUT
+            </NavLink>
           ) : (
             <NavLink to="/auth">SIGN IN</NavLink>
           )}
